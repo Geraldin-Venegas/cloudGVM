@@ -29,8 +29,13 @@ async function register() {
 }
 
 async function login() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (!email || !password) {
+    alert("Por favor, ingresa correo y contraseña.");
+    return;
+  }
 
   const { data, error } = await client.auth.signInWithPassword({
     email,
@@ -42,7 +47,6 @@ async function login() {
   } else {
     alert("Sesión iniciada.");
     localStorage.setItem("token", data.session.access_token);
-
-     window.location.href = "dashboard.html"; //Registro Estudiantes
+    window.location.href = "dashboard.html";
   }
 }
