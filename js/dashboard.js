@@ -50,17 +50,21 @@ async function cargarEstudiantes() {
     return;
   }
 
-  const lista = document.getElementById("lista-estudiantes");
-  lista.innerHTML = "";
+  const tbody = document.querySelector("#tabla-estudiantes tbody");
+  tbody.innerHTML = "";
 
   data.forEach((est) => {
-    const item = document.createElement("li");
-    item.innerHTML = `
-      ${est.nombre} (${est.clase}) - ${est.correo}
-      <button onclick="editarEstudiante('${est.id}', '${est.nombre}', '${est.correo}', '${est.clase}')">Editar</button>
-      <button onclick="eliminarEstudiante('${est.id}')">Eliminar</button>
+    const fila = document.createElement("tr");
+
+    fila.innerHTML = `
+      <td>${est.nombre}</td>
+      <td>${est.correo}</td>
+      <td>${est.clase}</td>
+      <td><button onclick="editarEstudiante('${est.id}', '${est.nombre}', '${est.correo}', '${est.clase}')">Editar</button></td>
+      <td><button onclick="eliminarEstudiante('${est.id}')">Eliminar</button></td>
     `;
-    lista.appendChild(item);
+
+    tbody.appendChild(fila);
   });
 }
 

@@ -16,14 +16,33 @@
       <h2>Registrar estudiante</h2>
       <input type="text" id="nombre" placeholder="Nombre del estudiante" />
       <input type="email" id="correo" placeholder="Correo" />
-      <input type="text" id="clase" placeholder="Clase" />
+      <select id="clase">
+        <option value="">Seleccione una clase</option>
+        <option value="Clase 1">Clase 1</option>
+        <option value="Clase 2">Clase 2</option>
+        <option value="Clase 3">Clase 3</option>
+        <option value="Clase 4">Clase 4</option>
+        <option value="Clase 5">Clase 5</option>
+      </select>
       <button onclick="agregarEstudiante()">Agregar</button>
     </section>
 
    
     <section class="card">
       <h2>Lista de estudiantes</h2>
-      <ul id="lista-estudiantes"></ul>
+      <table id="tabla-estudiantes" border="1" cellpadding="5" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Clase</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
     </section>
 
     <section class="card">
