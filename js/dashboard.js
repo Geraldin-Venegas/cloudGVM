@@ -29,6 +29,12 @@ async function agregarEstudiante() {
     alert("Error al agregar: " + error.message);
   } else {
     alert("Estudiante agregado");
+
+    // 🔹 Limpiar campos
+    document.getElementById("nombre").value = "";
+    document.getElementById("correo").value = "";
+    document.getElementById("clase").value = "";
+
     cargarEstudiantes();
   }
 }
