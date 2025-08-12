@@ -11,6 +11,11 @@ async function agregarEstudiante() {
 
   const { data: { user }, error: userError } = await client.auth.getUser();
 
+  if (!nombre || !correo || !clase) {
+    alert("Todos los campos son obligatorios.");
+    return;
+  }
+
   if (userError || !user) {
     alert("No estás autenticado.");
     return;

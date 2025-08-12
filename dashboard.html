@@ -5,17 +5,19 @@
   <title>Panel - Estudiantes</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
   <div class="container">
 
     <h1>Panel de Estudiantes</h1>
-<button onclick="cerrarSesion()" class="cerrar-btn">Cerrar sesión</button>
+    <button onclick="cerrarSesion()" class="cerrar-btn">Cerrar sesión</button>
   
     <section class="card">
       <h2>Registrar estudiante</h2>
       <input type="text" id="nombre" placeholder="Nombre del estudiante" />
       <input type="email" id="correo" placeholder="Correo" />
+
       <select id="clase">
         <option value="">Seleccione una clase</option>
         <option value="Clase 1">Clase 1</option>
@@ -24,13 +26,13 @@
         <option value="Clase 4">Clase 4</option>
         <option value="Clase 5">Clase 5</option>
       </select>
+
       <button onclick="agregarEstudiante()">Agregar</button>
     </section>
 
-   
     <section class="card">
       <h2>Lista de estudiantes</h2>
-      <table id="tabla-estudiantes" border="1" cellpadding="5" cellspacing="0">
+      <table id="tabla-estudiantes">
         <thead>
           <tr>
             <th>Nombre</th>
@@ -42,7 +44,6 @@
         </thead>
         <tbody></tbody>
       </table>
-
     </section>
 
     <section class="card">
@@ -59,7 +60,7 @@
       <ul id="lista-archivos"></ul>
     </section>
 
-    </div>
+  </div>
   <script src="js/dashboard.js"></script>
 </body>
 </html>

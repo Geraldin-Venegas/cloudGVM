@@ -173,3 +173,70 @@ img {
   border-radius: 6px;
 }
 
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f9fc;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#tabla-estudiantes {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+#tabla-estudiantes th, #tabla-estudiantes td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+#tabla-estudiantes th {
+  background-color: #f1f3f6;
+}
+
+#tabla-estudiantes tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-editar {
+  background-color: #a3d9a5; /* verde pastel */
+  color: white;
+}
+
+.btn-eliminar {
+  background-color: #f7a6a6; /* rojo pastel */
+  color: white;
+}
+
+.btn-editar i, .btn-eliminar i {
+  margin-right: 5px;
+}
+
+.cerrar-btn {
+  background-color: #ffb347;
+  color: white;
+  float: right;
+}
