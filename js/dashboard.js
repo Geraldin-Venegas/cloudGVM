@@ -4,43 +4,51 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 // Inicializar Supabase client
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+let editandoId = null; // para saber si estamos en modo edición
+
 async function agregarEstudiante() {
   const nombre = document.getElementById("nombre").value;
   const correo = document.getElementById("correo").value;
   const clase = document.getElementById("clase").value;
-
-  const { data: { user }, error: userError } = await client.auth.getUser();
 
   if (!nombre || !correo || !clase) {
     alert("Todos los campos son obligatorios.");
     return;
   }
 
+  const { data: { user }, error: userError } = await client.auth.getUser();
   if (userError || !user) {
     alert("No estás autenticado.");
     return;
   }
 
-  const { error } = await client.from("estudiantes").insert([
-    {
-      nombre,
-      correo,
-      clase,
-      user_id: user.id,
+  if (editandoId) {
+    // 🔹 MODO EDITAR
+    const { error } = await client
+      .from("estudiantes")
+      .update({ nombre, correo, clase })
+      .eq("id", editandoId);
+
+    if (error) {
+      alert("Error al actualizar: " + error.message);
+    } else {
+      alert("Estudiante actualizado");
+      resetFormulario();
+      cargarEstudiantes();
     }
-  ]);
-
-  if (error) {
-    alert("Error al agregar: " + error.message);
   } else {
-    alert("Estudiante agregado");
+    // 🔹 MODO AGREGAR
+    const { error } = await client.from("estudiantes").insert([
+      { nombre, correo, clase, user_id: user.id }
+    ]);
 
-    // 🔹 Limpiar campos
-    document.getElementById("nombre").value = "";
-    document.getElementById("correo").value = "";
-    document.getElementById("clase").value = "";
-
-    cargarEstudiantes();
+    if (error) {
+      alert("Error al agregar: " + error.message);
+    } else {
+      alert("Estudiante agregado");
+      resetFormulario();
+      cargarEstudiantes();
+    }
   }
 }
 
@@ -73,6 +81,26 @@ async function cargarEstudiantes() {
   });
 }
 
+function editarEstudiante(id, nombre, correo, clase) {
+  document.getElementById("nombre").value = nombre;
+  document.getElementById("correo").value = correo;
+  document.getElementById("clase").value = clase;
+
+  editandoId = id;
+  document.querySelector("#btn-guardar").textContent = "Guardar cambios";
+  document.querySelector("#btn-guardar").style.backgroundColor = "#a3d9a5"; // verde pastel
+}
+
+function resetFormulario() {
+  document.getElementById("nombre").value = "";
+  document.getElementById("correo").value = "";
+  document.getElementById("clase").value = "";
+
+  editandoId = null;
+  document.querySelector("#btn-guardar").textContent = "Agregar";
+  document.querySelector("#btn-guardar").style.backgroundColor = "";
+}
+
 async function eliminarEstudiante(id) {
   if (!confirm("¿Seguro que deseas eliminar este estudiante?")) return;
 
@@ -85,33 +113,6 @@ async function eliminarEstudiante(id) {
     alert("Error al eliminar: " + error.message);
   } else {
     alert("Estudiante eliminado");
-    cargarEstudiantes();
-  }
-}
-
-async function editarEstudiante(id, nombre, correo, clase) {
-  const nuevoNombre = prompt("Nuevo nombre:", nombre);
-  const nuevoCorreo = prompt("Nuevo correo:", correo);
-  const nuevaClase = prompt("Nueva clase:", clase);
-
-  if (!nuevoNombre || !nuevoCorreo || !nuevaClase) {
-    alert("Todos los campos son obligatorios.");
-    return;
-  }
-
-  const { error } = await client
-    .from("estudiantes")
-    .update({
-      nombre: nuevoNombre,
-      correo: nuevoCorreo,
-      clase: nuevaClase
-    })
-    .eq("id", id);
-
-  if (error) {
-    alert("Error al actualizar: " + error.message);
-  } else {
-    alert("Estudiante actualizado");
     cargarEstudiantes();
   }
 }

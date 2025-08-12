@@ -27,7 +27,7 @@
         <option value="Clase 5">Clase 5</option>
       </select>
 
-      <button onclick="agregarEstudiante()">Agregar</button>
+      <button id="btn-guardar" onclick="agregarEstudiante()">Agregar</button>
     </section>
 
     <section class="card">
@@ -38,12 +38,17 @@
             <th>Nombre</th>
             <th>Correo</th>
             <th>Clase</th>
-            <th>Editar</th>
+            <td>
+              <button class="btn-editar" onclick="editarEstudiante('${est.id}', '${est.nombre}', '${est.correo}', '${est.clase}')">
+                <i class="fa fa-edit"></i>Editar
+              </button>
+            </td>
             <th>Eliminar</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
+
     </section>
 
     <section class="card">
